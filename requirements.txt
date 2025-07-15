@@ -4,3 +4,5 @@ pypdf
 pdfminer.six
 python-docx
 google-generativeai
+pandas
+openpyxl
