@@ -1,0 +1,6 @@
+pytesseract
+easyocr
+pypdf
+pdfminer.six
+python-docx
+google-generativeai
