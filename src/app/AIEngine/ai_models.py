@@ -1,6 +1,9 @@
 from abc import ABC, abstractmethod
 import google.generativeai as genai
 from google.generativeai import types
+
+from openai import OpenAI
+
 from src.app.AIEngine.prompt import RESUME_EXTRACTION_PROMPT
 
 class AbstractAIModel(ABC):
@@ -11,19 +14,18 @@ class AbstractAIModel(ABC):
 class GeminiModel(AbstractAIModel):
     def __init__(self, api_key: str):
         self.api_key = api_key
-        genai.configure(api_key=self.api_key)
-        self.model = genai.GenerativeModel("gemini-2.5-flash")
         self.PROMPT_TEMPLATE = RESUME_EXTRACTION_PROMPT
 
-    generateText = ""
-
-
     def generate_text(self, prompt: str, **kwargs) -> str | None:
+        response_text = ""
         formatted_prompt = self.PROMPT_TEMPLATE.format(resume_text=prompt)
+
+        client = genai.GenerativeModel("gemini-2.5-flash")
+        genai.configure(api_key=self.api_key)
         generation_config = types.GenerationConfig(
             temperature=kwargs.get('temperature', 0.1),
         )
-        response = self.model.generate_content(
+        response = client.generate_content(
             contents=[formatted_prompt],
             generation_config=generation_config
         )
@@ -31,13 +33,21 @@ class GeminiModel(AbstractAIModel):
         if response.candidates:
             first_candidate = response.candidates[0]
             if first_candidate.content and first_candidate.content.parts:
-                self.generateText = first_candidate.content.parts[0].text
-        return self.generateText
+                response_text = first_candidate.content.parts[0].text
+        return response_text
 
-class ChatGPTModel(AbstractAIModel):
+class OpenAIModel(AbstractAIModel):
     def __init__(self, api_key: str):
         self.api_key = api_key
+        self.PROMPT_TEMPLATE = RESUME_EXTRACTION_PROMPT
 
-    def generate_text(self, prompt: str, **kwargs) -> str:
-        return f"ChatGPT text generate response."
+    def generate_text(self, prompt: str, **kwargs):
+        formatted_prompt = self.PROMPT_TEMPLATE.format(resume_text=prompt)
+
+        client = OpenAI(api_key=self.api_key)
+        response = client.responses.create(
+            model="gpt-4.1",
+            input = formatted_prompt
+        )
+        print(response)
 

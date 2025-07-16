@@ -1,5 +1,5 @@
 import os
-from .ai_models import AbstractAIModel, GeminiModel, ChatGPTModel
+from .ai_models import AbstractAIModel, GeminiModel, OpenAIModel
 
 class AIModelFactory:
     def __init__(self):
@@ -15,8 +15,8 @@ class AIModelFactory:
 
         if model_name_lower == "gemini":
             return  GeminiModel(api_key = api_key)
-        elif model_name_lower == "chatgpt":
-            return  ChatGPTModel(api_key=api_key)
+        elif model_name_lower == "openai":
+            return  OpenAIModel(api_key=api_key)
         else:
             raise ValueError(f"Unsupported models : {model_name}")
 

@@ -15,8 +15,8 @@ def extract_clean_text(text):
 try:
     img = Image.open(image_path)
     ocr_result = pytesseract.image_to_string(img, lang='eng+mya+tha')
-    final_result = extract_clean_text(ocr_result)
+    ocr_result = extract_clean_text(ocr_result)
 
-    print(final_result)
+    print(ocr_result)
 except Exception as ex:
     print(f"Error during OCR : {ex}")

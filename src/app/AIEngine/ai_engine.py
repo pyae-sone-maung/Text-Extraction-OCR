@@ -32,4 +32,4 @@ class AIEngine:
 
     @staticmethod
     def get_supported_models() -> list[str]:
-        return ["gemini", "chatgpt", "deepseek"]
+        return ["gemini", "openai", "deepseek"]
