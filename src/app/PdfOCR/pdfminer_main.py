@@ -1,10 +1,10 @@
 from pdfminer.high_level import extract_text
 import  os
 import re
-from src.app.AIEngine.ai_task import run_ai_text_extract
+from src.app.AIEngine.ai_process import run_ai_text_extract
 
 upload_dri = os.path.join(os.path.dirname(__file__), "..", "..", "assets")
-file_path = os.path.join(upload_dri, "documents", 'YGN.pdf')
+file_path = os.path.join(upload_dri, "documents", 'MMM.pdf')
 
 def extract_clean_text(text):
     clean_text = re.sub(r'[^a-zA-Z0-9\s.,@/\u1000-\u109F\u0E00-\u0E7F]', '', text)

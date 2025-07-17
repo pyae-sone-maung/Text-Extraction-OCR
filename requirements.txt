@@ -6,3 +6,5 @@ python-docx
 google-generativeai
 pandas
 openpyxl
+openai
+PyMuPDF
