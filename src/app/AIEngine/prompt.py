@@ -7,5 +7,5 @@ Include:
 - work_experience (list: title, company, dates, responsibilities)
 - education (list: degree, institution, dates)
 - skills (list: technical, soft_skills, communication_skills, other_skills)
-- projects (list: name, description, technologies_used, project_url)
+- projects or product (list: name, description, technologies_used, project_url)
 Resume Text: {resume_text}"""
